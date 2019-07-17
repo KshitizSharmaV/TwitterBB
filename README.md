@@ -1,5 +1,5 @@
 # TwitterBB
 Twitter tweets application
 
-![alt text](Web Page.png)
+![Screenshot](Web Page.png)
 
