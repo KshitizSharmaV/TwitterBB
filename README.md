@@ -1,4 +1,4 @@
-# TwitterBB
+# Twitter Backend Benchmark
 Twitter tweets application
 
 ![Screenshot](Web_Page.png)
