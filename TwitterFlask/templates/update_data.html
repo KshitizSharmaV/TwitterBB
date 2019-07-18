@@ -1,0 +1,49 @@
+ <!-- Dispaly Tweets -->
+          <div class="col-md-8 col-lg-8 col-sm-12">
+            <h4 class="mt-4">Tweets</h4>
+            
+            <!-- tweets table -->
+            <table class="table table-primary">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Tweet</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for key,value in tweets_frame.items() %}
+                <tr>
+                  <th scope="row">{{key}}</th>
+                  <td>{{value}}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <!-- tweets table -->
+
+          <!-- Tweets Table -->
+          </div>
+          <!-- Dispaly Tweets -->
+
+          <!-- Tweets analytics -->
+          <div class="col-md-4 col-lg-34col-sm-12">
+            <h4 class="mt-4">Tweets Word counts</h4>
+
+            <table class="table table-primary">
+              <thead>
+                <tr>
+                  <th scope="col">Word</th>
+                  <th scope="col">Counts</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for key,value in tweet_words_count.items() %}
+                <tr>
+                  <th scope="row">{{key}}</th>
+                  <td>{{value}}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+         </div>
+          <!-- Tweets analytics -->

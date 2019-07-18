@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Twitter Analytics Backend Benchmark</title>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" type="text/css" href="/vendor/bootstrap/css/bootstrap.min.css">
+
+  <!-- Custom styles for this template -->
+  <link href="css/simple-sidebar.css" rel="stylesheet">
+
+  <!-- Ajax -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <!-- Script to get the search qurey -->
+    <script type=text/javascript>
+      $(document).ready(function() {
+
+      $("#submit").click(function() {
+
+        var val = 1;
+        var entry1 = 3;
+
+        $.ajax({
+        url: "/getData",
+        data: { entry2_id: val, entry1_id: entry1 },
+        success: function(response){
+            console.log("Hello");
+            $("#tweet_analytics").html(response);
+          }
+        });
+
+      });
+
+      });
+    </script>    
+  <!-- Script to get the search qurey -->
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">Backend Benchmark </div>
+      <div class="list-group list-group-flush">
+        <a href="#" class="list-group-item list-group-item-action bg-light">Twitter Analytics </a>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom navbar-dark">
+        <button class="btn btn-primary" id="menu-toggle">Toggle</button>
+
+        <button id="submit">Submit</button>
+        <span id="varID">{{ variable_here }}</span>
+        <!--
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      -->
+      </nav>
+
+      <div class="container-fluid">
+        <!-- Search Box  -->
+        <div class="row">
+          <div class="col-md-4 col-lg-5 col-sm-12">
+              <div class="active-purple-3 active-purple-4" style="padding-top: 10px;">
+                 <form class="form-inline">
+                  <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+          </div>
+        </div>
+        <!-- Search Box  -->
+        <!-- Content Box -->
+        <div class="row" id="tweet_analytics">
+          <!-- Dispaly Tweets -->
+          <div class="col-md-8 col-lg-8 col-sm-12">
+            <h4 class="mt-4">Tweets</h4>
+            
+            <!-- tweets table -->
+            <table class="table table-primary">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Tweet</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for key,value in tweets_frame.items() %}
+                <tr>
+                  <th scope="row">{{key}}</th>
+                  <td>{{value}}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <!-- tweets table -->
+
+          <!-- Tweets Table -->
+          </div>
+          <!-- Dispaly Tweets -->
+
+          <!-- Tweets analytics -->
+          <div class="col-md-4 col-lg-34col-sm-12">
+            <h4 class="mt-4">Tweets Word counts</h4>
+
+            <table class="table table-primary">
+              <thead>
+                <tr>
+                  <th scope="col">Word</th>
+                  <th scope="col">Counts</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for key,value in tweet_words_count.items() %}
+                <tr>
+                  <th scope="row">{{key}}</th>
+                  <td>{{value}}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+         </div>
+          <!-- Tweets analytics -->
+        </div>
+        <div class="row" id="box2">
+        </div>
+        <!-- Content Box -->
+
+      </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>
+
+</body>
+
+</html>
