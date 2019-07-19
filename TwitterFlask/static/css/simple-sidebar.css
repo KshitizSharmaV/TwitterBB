@@ -47,3 +47,19 @@ body {
     margin-left: -15rem;
   }
 }
+
+#searchbox{
+  padding-top: 7%
+}
+
+
+#tweet_search{
+border-bottom-right-radius: 0;
+border-top-right-radius: 0;
+}
+
+#tweet_seach_button{
+border-bottom-left-radius: 0;
+border-top-left-radius: 0;
+
+}
