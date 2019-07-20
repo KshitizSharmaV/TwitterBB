@@ -1,12 +1,17 @@
+import sys
+sys.path.insert(0, 'lib')
+
 # importing packages for twitter
 import json
+import numpy
 import pandas as pd
-import matplotlib.pyplot as plt
+
 from twitter import *
 
 # Import flask modules
 from flask import render_template, request, send_from_directory, jsonify
 from flask import Flask
+
 
 app = Flask(__name__,
 		static_url_path='', 
