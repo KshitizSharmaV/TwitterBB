@@ -35,7 +35,21 @@
           }
           });
       });
+    
+    $('#recent_search').click(function(event) {
       event.preventDefault();
+       $.ajax({
+          data : {
+             tweet_search : $('#tweet_search').val(),
+                 },
+             url : '/recent_searches',
+             success: function(response){
+            console.log("Hello2");
+            $("#main_area").html(response);
+          }
+          });
+      });
+      
       });
     </script>    
   <!-- Script to get the search qurey -->
@@ -49,7 +63,8 @@
     <div class="bg-light border-right" id="sidebar-wrapper">
       <div class="sidebar-heading">Backend Benchmark </div>
       <div class="list-group list-group-flush">
-        <a href="#" class="list-group-item list-group-item-action bg-light">Twitter Analytics </a>
+        <a href="/" class="list-group-item list-group-item-action bg-light">Twitter Analytics </a>
+        <a href="#" class="list-group-item list-group-item-action bg-light" id="recent_search">Recent Searches</a>
       </div>
     </div>
     <!-- /#sidebar-wrapper -->
@@ -61,7 +76,7 @@
         <button class="btn btn-primary" id="menu-toggle">Toggle</button>
       </nav>
 
-      <div class="container-fluid">
+      <div class="container-fluid" id="main_area">
         <!-- Search Box  -->
         <div class="row">
           <div class="col-md-4 col-lg-4 col-sm-12">
@@ -81,9 +96,12 @@
         <div class="row" id="tweet_analytics">
           <!-- Dispaly Tweets -->
           <div class="col-md-8 col-lg-8 col-sm-12">
+            
+            <h4 class="mt-4">Word Searced : {{word_searched}}</h4>
             <h4 class="mt-4">Tweets</h4>
             
             <!-- tweets table -->
+            <div style="overflow-y:scroll; overflow-x:hidden; height:900px;">
             <table class="table table-primary">
               <thead>
                 <tr>
@@ -100,6 +118,7 @@
                 {% endfor %}
               </tbody>
             </table>
+          </div>
             <!-- tweets table -->
 
           <!-- Tweets Table -->

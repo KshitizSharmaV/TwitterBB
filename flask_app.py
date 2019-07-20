@@ -5,6 +5,7 @@ sys.path.insert(0, 'lib')
 import json
 import numpy
 import pandas as pd
+import datetime
 
 from twitter import *
 
@@ -27,7 +28,26 @@ def index():
 	# Get the tweets
 	tweets_frame,tweets_dict=tweets_frame_fun("Happy")
 	tweet_words_count=tweets_word_counts_func(tweets_frame)
-	return render_template('index.html',tweets_frame=tweets_dict,tweet_words_count=tweet_words_count)
+	return render_template('index.html',tweets_frame=tweets_dict,tweet_words_count=tweet_words_count,word_searched="Happy")
+
+
+
+@app.route('/process',methods= ['POST'])
+def process():
+	tweet_search = request.form['tweet_search']
+	print(tweet_search)
+	tweets_frame,tweets_dict=tweets_frame_fun(tweet_search)
+	tweet_words_count=tweets_word_counts_func(tweets_frame)
+	save_data(tweet_search,tweet_words_count)
+	return render_template('update_data.html',tweets_frame=tweets_dict,tweet_words_count=tweet_words_count,word_searched=tweet_search)
+
+
+@app.route('/recent_searches')
+def recent_searches():
+	df = pd.read_csv('DataDb.csv', delimiter=',')
+	df=df[['Search','Time']].set_index('Search').to_dict()
+	df=df['Time']
+	return render_template('recent_searches.html',recent_searches_frame=dict(df))	
 
 # return tweets
 def tweets_frame_fun(word):
@@ -63,17 +83,16 @@ def tweets_word_counts_func(tweets_frame):
 	tweet_words_count=dict(tweet_words_count[0:10])
 	return tweet_words_count
 
-@app.route('/process',methods= ['POST'])
-def process():
-	tweet_search = request.form['tweet_search']
-	print(tweet_search)
-	tweets_frame,tweets_dict=tweets_frame_fun(tweet_search)
-	tweet_words_count=tweets_word_counts_func(tweets_frame)
-	return render_template('update_data.html',tweets_frame=tweets_dict,tweet_words_count=tweet_words_count)
-
+# Save the data in a csv file 
+def save_data(Search,Words):
+	Time = datetime.datetime.now()
+	df = pd.read_csv('DataDb.csv', delimiter=',') 
+	data={'Search':[Search],'Time':[str(Time)]}
+	print(data)
+	print(df)
+	data=df.append(pd.DataFrame(data))
+	data=data[['Search','Time']]
+	data.to_csv('DataDb.csv')
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-
-
