@@ -22,6 +22,7 @@
     <script type=text/javascript>
       $(document).ready(function() {
     $('form').on('submit', function(event) {
+      event.preventDefault();
        $.ajax({
           data : {
              tweet_search : $('#tweet_search').val(),
@@ -71,7 +72,7 @@
                 </div>
 
                 <!--Submit Button-->
-                <button type="submit" id="tweet_seach_button" class="btn btn-primary">Submit</button>
+                <button id="tweet_seach_button" class="btn btn-primary">Submit</button>
             </form>
           </div>
         </div>

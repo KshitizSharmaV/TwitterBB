@@ -63,27 +63,12 @@ def tweets_word_counts_func(tweets_frame):
 	tweet_words_count=dict(tweet_words_count[0:10])
 	return tweet_words_count
 
-@app.route("/getData",methods=['Post'])
-def getData():
-	#print(request.form.getlist('tweet_search'))
-	print(request.args)
-	jsonData = request.form.to_dict()
-	print(jsonData)
-	tweets_frame,tweets_dict=tweets_frame_fun("MSFT")
-	tweet_words_count=tweets_word_counts_func(tweets_frame)
-	print("Hello from /getData")
-	return render_template('update_data.html',tweets_frame=tweets_dict,tweet_words_count=tweet_words_count)
-	#return jsonify({ 'tweets_frame':tweets_dict,'tweet_words_count':tweet_words_count})
-
-
 @app.route('/process',methods= ['POST'])
 def process():
 	tweet_search = request.form['tweet_search']
 	print(tweet_search)
 	tweets_frame,tweets_dict=tweets_frame_fun(tweet_search)
 	tweet_words_count=tweets_word_counts_func(tweets_frame)
-	
-	print("Hello from /getData")
 	return render_template('update_data.html',tweets_frame=tweets_dict,tweet_words_count=tweet_words_count)
 
 
